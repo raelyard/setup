@@ -1,0 +1,1 @@
+"C:\downloads\microsoft\sql server\2012\en_sql_server_2012_standard_edition_x86_x64_dvd_813403\Setup.exe" /q /ACTION=Install /FEATURES=SQL /INSTANCENAME=MSSQLSERVER /SQLSVCACCOUNT="NT Authority\Network Service" /SQLSYSADMINACCOUNTS="David" /AGTSVCACCOUNT="NT Authority\Network Service" /SECURITYMODE="SQL" /SAPWD="raelisgod" /TCPENABLED=1 /IAcceptSQLServerLicenseTerms=true

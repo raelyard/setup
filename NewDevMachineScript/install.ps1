@@ -1,5 +1,8 @@
 .\InstallWebPlatformInstaller.ps1
 
+# turn off UAC (requires reboot to take effect)
+reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 1 /f
+
 # IIS
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework4"
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework45"
@@ -32,11 +35,11 @@ cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Pr
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:WindowsAzureSDK"
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:WindowsAzureToolsVS2012"
 
+#msmq
+ocsetup MSMQ-Server
 
 # Chocolatey stuff
 iex ((new-object net.webclient).DownloadString("http://bit.ly/psChocInstall"))
 
 cinst .\packages.config
 
-
-.\InstallSqlServer.cmd

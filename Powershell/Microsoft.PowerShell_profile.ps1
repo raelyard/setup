@@ -1,8 +1,9 @@
 # Add things to path
-$scripts = "$env:USERPROFILE\My Documents\WindowsPowerShell\Scripts"
+$personalPowerShellDirectory = "$env:USERPROFILE\My Documents\WindowsPowerShell"
+$scripts = "$personalPowerShellDirectory\Scripts"
+$aliasesDirectory = "$personalPowerShellDirectory\Aliases"
 $env:PATH += ";$scripts;C:\program files\nant-0.85\bin;c:\Program Files\Microsoft FxCop 1.35;C:\Program Files\commandutils;C:\Program Files (x86)\Nano;C:\Program Files (x86)\Windows Resource Kits\Tools;C:\Program Files (x86)\Log Parser 2.2"
  
-# Set VS 2010 Vars ##################################################################
 # REF: http://blogs.msdn.com/daiken/archive/2006/11/15/configuring-a-visual-studio-2005-environment-for-windows-powershell.aspx
 pushd 'C:\Program Files (x86)\Microsoft Visual Studio 11.0\vc'
 cmd /c "vcvarsall.bat&set" |
@@ -97,6 +98,13 @@ function Edit-Profile{np $profile}
 set-alias pro Edit-Profile
  
 function set-title{Param([string] $title); $Host.Ui.RawUi.WindowTitle = $title}
+
+$aliasScripts = get-childitem -recurse "$aliasesDirectory" -filter "*.ps1"
+foreach($aliasScript in $aliasScripts)
+{
+	echo $aliasScript.fullname
+	. $aliasScript.fullname
+}
  
 # welcome message ###################################################################
 # REF: http://www.computerperformance.co.uk/powershell/powershell_profile_ps1.htm

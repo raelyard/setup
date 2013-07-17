@@ -1,6 +1,8 @@
 # .NET 3.5 - prerequisite for web platform installer
 dism /online /enable-feature /featurename:"netfx3"
-.\InstallWebPlatformInstaller.ps1
+. .\ExtractZip.ps1
+. .\InstallWebPlatformInstaller.ps1
+InstallWebPlatformInstaller
 
 # .NET - prerequisite for a lot of this stuff
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework4"

@@ -44,3 +44,6 @@ iex ((new-object net.webclient).DownloadString("http://bit.ly/psChocInstall"))
 cinst .\packages.config
 
 .\SetupKeePassHttp.ps1
+
+# fix visual studio menus shouting: http://stackoverflow.com/questions/10859173/how-to-disable-all-caps-menu-titles-in-visual-studio
+Set-ItemProperty -Path HKCU:\Software\Microsoft\VisualStudio\11.0\General -Name SuppressUppercaseConversion -Type DWord -Value 1

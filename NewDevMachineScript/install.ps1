@@ -1,11 +1,14 @@
+# .NET - prerequisite for a lot of this stuff
+dism /online /enable-feature /featurename:"netfx3"
+cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework4"
+cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework45"
+
 .\InstallWebPlatformInstaller.ps1
 
 # turn off UAC (requires reboot to take effect)
 reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 1 /f
 
-# IIS
-cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework4"
-cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:NetFramework45"
+# IIS and friends
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:IIS7"
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:ASPNET"
 cmd /C ".\WebPlatformInstaller\webpicmd /install /AcceptEula /SuppressReboot /Products:BasicAuthentication"

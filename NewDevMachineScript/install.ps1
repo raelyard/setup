@@ -47,3 +47,6 @@ cinst .\packages.config
 
 # fix visual studio menus shouting: http://stackoverflow.com/questions/10859173/how-to-disable-all-caps-menu-titles-in-visual-studio
 Set-ItemProperty -Path HKCU:\Software\Microsoft\VisualStudio\11.0\General -Name SuppressUppercaseConversion -Type DWord -Value 1
+
+#get visualhg showing up as a source control option in visual studio: http://www.skimedic.com/blog/post/2012/09/27/Fixing-the-Visual-Studio-2012-and-VisualHG-Installation-Issue.aspx
+“C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv” /setup

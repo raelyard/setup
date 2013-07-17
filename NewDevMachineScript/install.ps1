@@ -43,3 +43,4 @@ iex ((new-object net.webclient).DownloadString("http://bit.ly/psChocInstall"))
 
 cinst .\packages.config
 
+.\SetupKeePassHttp.ps1

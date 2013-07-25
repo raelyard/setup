@@ -1,6 +1,6 @@
-cd C:\
-md Code
-cd Code
+param ($setupRootPath = "C:\Code")
+new-item "$setupRootPath" -itemType directory
+cd $setupRootPath
 
 # getting tortoisehg installed so we can clone repository and execute the scripts to get set up
 iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/setup/raw/default/NewDevMachineScript/InstallPrerequisites.ps1"))
@@ -9,7 +9,9 @@ iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/s
 [System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "Machine") , "Process")
 hg clone https://bitbucket.org/raelyard/setup
 
-cd .\Setup\NewDevMachineScript
-.\install.ps1
+$scriptPath = $setupRootPath\Setup\NewDevMachineScript
+
+. $scriptPath\ScheduleScriptToRunAfterReboot.ps1
+ScheduleScriptToRunAfterReboot "$scriptPath\ResumeInstallAfterFirstReboot.ps1"
 
 # restart-computer

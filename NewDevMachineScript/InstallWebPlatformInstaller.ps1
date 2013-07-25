@@ -4,6 +4,6 @@ function InstallWebPlatformInstaller
 	$file = (Get-Location).Path + "\WebPlatformInstallerCommandLineInterface.zip"
 	$client.DownloadFile("http://go.microsoft.com/fwlink/?LinkId=233753", $file)
 
-	.\ExtractZip.ps1 WebPlatformInstallerCommandLineInterface.zip WebPlatformInstaller
+	ExtractZip WebPlatformInstallerCommandLineInterface.zip WebPlatformInstaller
 	remove-item WebPlatformInstallerCommandLineInterface.zip
 }

@@ -12,6 +12,6 @@ hg clone https://bitbucket.org/raelyard/setup
 $scriptPath = "$setupRootPath\Setup\NewDevMachineScript"
 
 . $scriptPath\ScheduleScriptToRunAfterReboot.ps1
-ScheduleScriptToRunAfterReboot "$scriptPath\ResumeInstallAfterFirstReboot.ps1"
+ScheduleScriptToRunAfterReboot "$scriptPath\ResumeInstallAfterFirstReboot.ps1 $scriptPath"
 
 # restart-computer

@@ -44,4 +44,4 @@ cinst WindowsAzureToolsVS2012 -source webpi
 Set-ItemProperty -Path HKCU:\Software\Microsoft\VisualStudio\11.0\General -Name SuppressUppercaseConversion -Type DWord -Value 1
 
 #get visualhg showing up as a source control option in visual studio: http://www.skimedic.com/blog/post/2012/09/27/Fixing-the-Visual-Studio-2012-and-VisualHG-Installation-Issue.aspx
-"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv" /setup
+& "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv" /setup

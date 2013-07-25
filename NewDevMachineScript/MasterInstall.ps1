@@ -9,7 +9,7 @@ iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/s
 [System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "Machine") , "Process")
 hg clone https://bitbucket.org/raelyard/setup
 
-cd Setup
+cd .\Setup\NewDevMachineScript
 .\install.ps1
 
 # restart-computer

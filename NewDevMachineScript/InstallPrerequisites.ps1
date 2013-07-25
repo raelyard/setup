@@ -1,7 +1,7 @@
 # .NET 3.5 - prerequisite for web platform installer
 dism /online /enable-feature /featurename:"netfx3"
-. iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/setup/raw/2d64bb7799cc3005c5595cad32737e0df6b367dc/NewDevMachineScript/ExtractZip.ps1"))
-. iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/setup/raw/2d64bb7799cc3005c5595cad32737e0df6b367dc/NewDevMachineScript/InstallWebPlatformInstaller.ps1"))
+. iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/setup/raw/default/NewDevMachineScript/ExtractZip.ps1"))
+. iex ((new-object net.webclient).DownloadString("https://bitbucket.org/raelyard/setup/raw/default/NewDevMachineScript/InstallWebPlatformInstaller.ps1"))
 InstallWebPlatformInstaller
 
 # .NET - prerequisite for a lot of this stuff

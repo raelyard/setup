@@ -99,11 +99,14 @@ set-alias pro Edit-Profile
  
 function set-title{Param([string] $title); $Host.Ui.RawUi.WindowTitle = $title}
 
-$aliasScripts = get-childitem -recurse "$aliasesDirectory" -filter "*.ps1"
-foreach($aliasScript in $aliasScripts)
+if(test-path $aliasesDirectory)
 {
-	echo $aliasScript.fullname
-	. $aliasScript.fullname
+	$aliasScripts = get-childitem -recurse "$aliasesDirectory" -filter "*.ps1"
+	foreach($aliasScript in $aliasScripts)
+	{
+		echo $aliasScript.fullname
+		. $aliasScript.fullname
+	}
 }
  
 # welcome message ###################################################################

@@ -23,6 +23,7 @@ $setupDirectory = "$codeDirectory\Setup"
 $psakeDirectory = "$setupDirectory\psake"
 $coreDirectory = "$codeDirectory\Core"
 $coreSolutionFile = "$coreDirectory\Core.sln"
+$nservicebusDirectory = "$env:USERPROFILE\AppData\Local\Apps\NServiceBus\v3.3.8\Tools"
 
 initialize-psake
 cd $codeDirectory
@@ -76,6 +77,7 @@ function coreDirectory{cd $coreDirectory}
 function openCoreSolution{devenv $coreSolutionFile}
 function purgeAllQueues{& "$coreDirectory\build\PurgeAllQueues.ps1"}
 function removeAllQueues{& "$coreDirectory\build\RemoveAllQueues.ps1"}
+function returnToSourceQueue{& "$nservicebusDirectory\returntosourcequeue.exe" error all}
 
 # ALIASES ##########################################################################
 set-alias np 'C:\Program Files (x86)\Notepad++\notepad++.exe'
@@ -92,6 +94,7 @@ set-alias coresln openCoreSolution
 set-alias build invoke-psake
 set-alias purge purgeAllQueues
 set-alias removeq removeAllQueues
+set-alias ret returnToSourceQueue
 
 # SCRIPTS ##########################################################################
 function Edit-Profile{np $profile}

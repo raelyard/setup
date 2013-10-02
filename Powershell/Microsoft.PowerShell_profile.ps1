@@ -5,7 +5,7 @@ $aliasesDirectory = "$personalPowerShellDirectory\Aliases"
 $env:PATH += ";$scripts;C:\program files\nant-0.85\bin;c:\Program Files\Microsoft FxCop 1.35;C:\Program Files\commandutils;C:\Program Files (x86)\Nano;C:\Program Files (x86)\Windows Resource Kits\Tools;C:\Program Files (x86)\Log Parser 2.2"
  
 # REF: http://blogs.msdn.com/daiken/archive/2006/11/15/configuring-a-visual-studio-2005-environment-for-windows-powershell.aspx
-pushd 'C:\Program Files (x86)\Microsoft Visual Studio 11.0\vc'
+pushd 'C:\Program Files (x86)\Microsoft Visual Studio 12.0\vc'
 cmd /c "vcvarsall.bat&set" |
 foreach {
  if ($_ -match "=") {
@@ -117,6 +117,6 @@ if(test-path $aliasesDirectory)
 "SETUP"
 "  user:" + $env:Username
 "  scripts:" + $scripts
-"  Imported C:\Program Files\Microsoft Visual Studio 11.0\vc\vcvarsall.bat"
+"  Imported C:\Program Files\Microsoft Visual Studio 12.0\vc\vcvarsall.bat"
 "_______________________________________________________________________________"
 

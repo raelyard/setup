@@ -78,6 +78,7 @@ function openCoreSolution{devenv $coreSolutionFile}
 function purgeAllQueues{& "$coreDirectory\build\PurgeAllQueues.ps1"}
 function removeAllQueues{& "$coreDirectory\build\RemoveAllQueues.ps1"}
 function returnToSourceQueue{& "$nservicebusDirectory\returntosourcequeue.exe" error all}
+function locateCommand{ get-command $args | format-list * }
 
 # ALIASES ##########################################################################
 set-alias np 'C:\Program Files (x86)\Notepad++\notepad++.exe'
@@ -95,6 +96,8 @@ set-alias build invoke-psake
 set-alias purge purgeAllQueues
 set-alias removeq removeAllQueues
 set-alias ret returnToSourceQueue
+set-alias locate locateCommand
+set-alias which locateCommand
 
 # SCRIPTS ##########################################################################
 function Edit-Profile{np $profile}

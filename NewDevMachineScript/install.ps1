@@ -7,8 +7,7 @@ reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v En
 ocsetup MSMQ-Server
 
 # IIS and friends
-cinst IIS7 -source webpi
-cinst ASPNET -source webpi
+cinst IIS-ASPNET45 -source webpi
 cinst BasicAuthentication -source webpi
 cinst DefaultDocument -source webpi
 cinst DigestAuthentication -source webpi
@@ -16,7 +15,6 @@ cinst DirectoryBrowse -source webpi
 cinst HTTPErrors -source webpi
 cinst HTTPLogging -source webpi
 cinst HTTPRedirection -source webpi
-cinst IIS7_ExtensionLessURLs -source webpi
 cinst IISManagementConsole -source webpi
 cinst IPSecurity -source webpi
 cinst ISAPIExtensions -source webpi
@@ -35,10 +33,6 @@ cinst MVC4 -source webpi
 cinst WindowsAzureSDK -source webpi
 
 # Chocolatey stuff
-cinst .\packages.config
-
-cinst WindowsAzureToolsVS2012 -source webpi
-.\SetupKeePassHttp.ps1
 
 # fix visual studio menus shouting: http://stackoverflow.com/questions/10859173/how-to-disable-all-caps-menu-titles-in-visual-studio
 Set-ItemProperty -Path HKCU:\Software\Microsoft\VisualStudio\11.0\General -Name SuppressUppercaseConversion -Type DWord -Value 1

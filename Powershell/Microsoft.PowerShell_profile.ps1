@@ -39,37 +39,49 @@ function hgPush
 function hgCommit{thg commit}
 function hgCloseBranch($comment)
 {
-                $branch = hg branch
-                if($branch -eq "default")
-                {
-                                Write-Host "abort: Do not close default branch"
-                                return "default"
-                }
-                Write-Host "attempting to close branch $branch"
-                if($comment -eq $Null)
-                {
-                                $comment = $branch
-                                $comment = "Closing branch " + $comment
-                }
-                Write-Host "hg commit --close-branch -m $comment"
-                hg commit --close-branch -m $comment
-                Write-Host $branch
-                return $branch
+	$branch = hg branch
+	if($branch -eq "default")
+	{
+		Write-Host "abort: Do not close default branch"
+		return "default"
+	}
+	Write-Host "attempting to close branch $branch"
+	if($comment -eq $Null)
+	{
+		$comment = $branch
+		$comment = "Closing branch " + $comment
+	}
+	Write-Host "hg commit --close-branch -m $comment"
+	hg commit --close-branch -m $comment
+	Write-Host $branch
+	return $branch
 }
 function hgCloseBranchAndMerge($comment)
 {
-                $branch = hgCloseBranch($comment)
-                if($branch -eq "default")
-                {
-                                return
-                }
-                Write-Host "attempting to merge branch $branch"
-                Write-Host "updating to default"
-                hg up default
-                Write-Host "merging branch into default"
-                hg merge $branch
-                Write-Host "committing merge"
-                hg commit -m "Merged branch $branch into default"
+	$branch = hgCloseBranch($comment)
+	if($branch -eq "default")
+	{
+		return
+	}
+	Write-Host "attempting to merge branch $branch"
+	Write-Host "updating to default"
+	hg up default
+	Write-Host "merging $branch into default"
+	hg merge $branch
+	Write-Host "committing merge"
+	hg commit -m "Merged branch $branch into default"
+}
+function merge($branchToMergeFrom)
+{
+	if(!$branchToMergeFrom)
+	{
+		$branchToMergeFrom = "default"
+	}
+	$branch = hg branch
+	Write-Host "merging $branchToMergeFrom into $branch"
+	hg merge $branchToMergeFrom
+	Write-Host "committing merge"
+	hg commit -m "Merged branch $branchToMergeFrom into $branch"
 }
 function codeDirectory{cd $codeDirectory}
 function hgCommit{thg commit}
@@ -87,7 +99,7 @@ set-alias log hgLog
 set-alias commit hgCommit
 set-alias push hgPush
 set-alias close hgCloseBranch
-set-alias merge hgCloseBranchAndMerge
+set-alias closemerge hgCloseBranchAndMerge
 set-alias code codeDirectory
 set-alias setup setupDirectory
 set-alias core coreDirectory

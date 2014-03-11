@@ -1,3 +1,5 @@
 syntax: glob
 
 NewDevMachineScript/WebPlatformInstaller/
+*Transcript.txt
+*.exe.ignore

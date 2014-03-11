@@ -136,7 +136,7 @@ if(test-path $aliasesDirectory)
 "_______________________________________________________________________________"
 function isCurrentDirectoryARepository($type) {
  
-    if ((Test-Path $type) -eq $TRUE) {
+    if ((Test-Path $type)) {
         return $TRUE
     }
  
@@ -144,7 +144,7 @@ function isCurrentDirectoryARepository($type) {
     $checkIn = (Get-Item .).parent
     while ($checkIn -ne $NULL) {
         $pathToTest = $checkIn.fullname + '/' + $type;
-        if ((Test-Path $pathToTest) -eq $TRUE) {
+        if ((Test-Path $pathToTest)) {
             return $TRUE
         } else {
             $checkIn = $checkIn.parent
@@ -168,11 +168,11 @@ function prompt(){
     if (isCurrentDirectoryARepository(".git")) {
         # Git Prompt
         $Global:GitStatus = Get-GitStatus
-        Write-GitStatus $GitStatus
+        Write-VcsStatus $GitStatus
     } elseif (isCurrentDirectoryARepository(".hg")) {
         # Mercurial Prompt
         $Global:HgStatus = Get-HgStatus
-        Write-HgStatus $HgStatus
+        Write-VcsStatus $HgStatus
     }
  
     return "> "

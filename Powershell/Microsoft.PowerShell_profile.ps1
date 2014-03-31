@@ -15,7 +15,13 @@ foreach {
 popd
 
 # initialize psake ##################################################################
-function initialize-psake {Import-Module $psakeDirectory\PSake.psm1;}
+function initialize-psake
+{
+	if(test-path $psakeDirectory)
+	{
+		Import-Module $psakeDirectory\PSake.psm1;
+	}
+}
 
 # Set Initial directory #############################################################
 $codeDirectory = "C:\Code"
@@ -152,28 +158,32 @@ function isCurrentDirectoryARepository($type) {
     }
     return $FALSE
 }
+ echo $codeDirectory
+ if((test-path "$codeDirectory\OpenSource\posh-hg") -and (test-path "$codeDirectory\OpenSource\posh-hg"))
+ {
+	# Posh-Hg and Posh-git prompt
+	# Change this to point to wherever your two profile scripts are
+	 
+	. "$codeDirectory\OpenSource\posh-hg\profile.example.ps1"
+	. "$codeDirectory\OpenSource\posh-git\profile.example.ps1"
  
-# Posh-Hg and Posh-git prompt
-# Change this to point to wherever your two profile scripts are
- 
-. 'C:\Code\OpenSource\posh-hg\profile.example.ps1'
-. 'C:\Code\OpenSource\posh-git\profile.example.ps1'
- 
-function prompt(){
+	function prompt()
+	{
     # Reset color, which can be messed up by Enable-GitColors
-    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
- 
-    Write-Host($pwd) -nonewline
- 
-    if (isCurrentDirectoryARepository(".git")) {
-        # Git Prompt
-        $Global:GitStatus = Get-GitStatus
-        Write-VcsStatus $GitStatus
-    } elseif (isCurrentDirectoryARepository(".hg")) {
-        # Mercurial Prompt
-        $Global:HgStatus = Get-HgStatus
-        Write-VcsStatus $HgStatus
-    }
- 
-    return "> "
+		$Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
+	 
+		Write-Host($pwd) -nonewline
+	 
+		if (isCurrentDirectoryARepository(".git")) {
+			# Git Prompt
+			$Global:GitStatus = Get-GitStatus
+			Write-VcsStatus $GitStatus
+		} elseif (isCurrentDirectoryARepository(".hg")) {
+			# Mercurial Prompt
+			$Global:HgStatus = Get-HgStatus
+			Write-VcsStatus $HgStatus
+		}
+	 
+		return "> "
+	}
 }

@@ -21,6 +21,7 @@ function script:CreateSolution
 	copy-item $setupDirectory\SourceControl\TemplateFiles\Empty.sln ".\$name.sln"
 	git add .
 	git commit -m "added a visual studio solution for the convenience of grouping the projects to implement the solution and for ease of build and use of visual studio"
+	devenv ".\$name.sln"
 }
 
 function script:CreateRepositoryWithSolution

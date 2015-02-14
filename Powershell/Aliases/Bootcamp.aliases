@@ -1,0 +1,7 @@
+"reboot-osx","bootToOsX","","None"
+"restart-computer-osx","bootToOsX","","None"
+"osx","bootToOsX","","None"
+
+"reboot-mac","bootToOsX","","None"
+"restart-computer-mac","bootToOsX","","None"
+"mac","bootToOsX","","None"

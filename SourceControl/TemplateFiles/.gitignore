@@ -21,6 +21,7 @@ syntax: glob
 *.lib
 *.sbr
 *.scc
+*.sln.ide/
 Logs
 [Bb]in
 [Dd]ebug*/

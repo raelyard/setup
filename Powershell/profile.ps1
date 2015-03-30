@@ -22,7 +22,7 @@ $dotSourceScript = "$powershellDirectory\DotSourceAllScriptsInDirectory.ps1"
 . DotSourceAllScriptsInDirectory $scriptsDirectory
 
 # REF: http://blogs.msdn.com/daiken/archive/2006/11/15/configuring-a-visual-studio-2005-environment-for-windows-powershell.aspx
-pushd 'C:\Program Files (x86)\Microsoft Visual Studio 12.0\vc'
+pushd 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\vc'
 cmd /c "vcvarsall.bat&set" |
 foreach {
  if ($_ -match "=") {
@@ -37,5 +37,5 @@ cd $codeDirectory
 "SETUP"
 "  user:" + $env:Username
 "  scripts:" + $scripts
-"  Imported C:\Program Files\Microsoft Visual Studio 12.0\vc\vcvarsall.bat"
+"  Imported C:\Program Files\Microsoft Visual Studio 14.0\vc\vcvarsall.bat"
 "_______________________________________________________________________________"

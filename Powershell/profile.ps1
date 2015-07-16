@@ -20,6 +20,7 @@ $dotSourceScript = "$powershellDirectory\DotSourceAllScriptsInDirectory.ps1"
 . DotSourceAllScriptsInDirectory $functionsDirectory
 . ImportAllAliasesInDirectory $aliasesDirectory
 . DotSourceAllScriptsInDirectory $scriptsDirectory
+clipx
 
 # REF: http://blogs.msdn.com/daiken/archive/2006/11/15/configuring-a-visual-studio-2005-environment-for-windows-powershell.aspx
 pushd 'C:\Program Files (x86)\Microsoft Visual Studio 14.0\vc'

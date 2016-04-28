@@ -2,6 +2,7 @@
 "np","C:\Program Files (x86)\Notepad++\notepad++.exe","","None"
 "locate","locateCommand","","None"
 "which","locateCommand","","None"
-"mc","machineConfig","","None"
+"mconfig","machineConfig","","None"
 "machinec","machineConfig","","None"
 "config","machineConfig","","None"
+"a","C:\Program Files\Atom\resources\cli\atom.cmd","","None"

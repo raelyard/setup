@@ -1,6 +1,0 @@
-"pull","hgPullAndUpdate","","None"
-"log","hgLog","","None"
-"commit","hgCommit","","None"
-"push","hgPush","","None"
-"close","hgCloseBranch","","None"
-"closemerge","hgCloseBranchAndMerge","","None"

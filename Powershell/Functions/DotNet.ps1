@@ -35,6 +35,7 @@ function script:AddProject
 function script:AddDomain
 {
   AddProject classlib Domain
+  rm Domain\Class1.cs
   Commit("Added domain project to enable fleshing out the solution")
 }
 
@@ -47,29 +48,40 @@ function script:AddWeb
 
 function script:AddSpecification
 {
-  AddProject classlib Specification
+  AddProject xunit Specification
+  dotnet remove Specification\Specification.csproj package xunit.runner.visualstudio
+  dotnet remove Specification\Specification.csproj package xunit
   dotnet add Specification\Specification.csproj package machine.specifications
+  dotnet add Specification\Specification.csproj package Machine.Specifications.Runner.VisualStudio
   dotnet add Specification\Specification.csproj package shouldly
   dotnet add Specification\Specification.csproj reference Domain\Domain.csproj
+  rm Specification\UnitTest1.cs
   Commit("Added specification project to enable understanding of the business problem")
 }
 
 function script:AddTest
 {
-  param($xunit)
-  if($xunit)
-  {
-    $template = "xunit"
-  }
-  else
-  {
-    dotnet new -i "NUnit3.DotNetNew.Template::*"
-    $template = "nunit"
-  }
+  param($nunit)
+
+  $template = ChooseTestProjectTemplate $nunit
   AddProject $template Test
   dotnet add Test\Test.csproj package shouldly
   dotnet add Test\Test.csproj reference Domain\Domain.csproj
+  rm Test\UnitTest1.cs
   Commit("Added test project to enable driving design and providing confidence")
+}
+
+function script:ChooseTestProjectTemplate
+{
+  param($nunit)
+
+  $template = "xunit"
+  if($nunit)
+  {
+    dotnet new -i "NUnit3.DotNetNew.Template::*"
+    $template = "xunit"
+  }
+  $template
 }
 
 function script:NewProject

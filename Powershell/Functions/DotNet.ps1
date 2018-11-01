@@ -78,21 +78,20 @@ function script:ChooseTestProjectTemplate
   $template = "xunit"
   if($nunit)
   {
-    dotnet new -i "NUnit3.DotNetNew.Template::*"
-    $template = "xunit"
+    $template = "nunit"
   }
   $template
 }
 
 function script:NewProject
 {
-  param($name, [switch]$noWeb, [switch]$noSpec, [switch]$noTest, [switch]$xunit, [switch]$open, [switch]$openVS)
+  param($name, [switch]$noWeb, [switch]$noSpec, [switch]$noTest, [switch]$nunit, [switch]$open, [switch]$openVS, [switch]$openRider)
   CreateRepository $name
   CreateIgnoreFile
   CreateSolution
   AddDomain $name
   if(!$noSpec) { AddSpecification }
-  if(!$noTest) { AddTest $xunit }
+  if(!$noTest) { AddTest $nunit }
   if(!$noWeb) { AddWeb }
   if($open) { code . }
   if($openVS) { devenv "$name.sln" }

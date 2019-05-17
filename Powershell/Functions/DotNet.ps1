@@ -32,6 +32,20 @@ function script:CreateIgnoreFile
   Commit "added standard template ignore file to reduce noise"
 }
 
+function script:EnsureStandardNuGetConfig
+{
+  EnsureDirectory ~/.raelyard/standardconfig/NuGet
+  try {
+    Invoke-WebRequest https://raw.githubusercontent.com/raelyard/domain-standards/master/NuGet.standard.Config -OutFile "~/.raelyard/standardconfig/NuGet/NuGet.Config"
+  }
+  catch {
+    # Swallowing failure and using last downdoaded file in case of not being connected
+  }
+  $standardNugetConfigFilePath = Resolve-Path "~/.raelyard/standardconfig/NuGet/NuGet.Config"
+  $standardNugetConfigFileXml = [xml](Get-Content -Path $standardNugetConfigFilePath)
+  $standardNugetConfigFileXml.configuration.packageSourceCredentials.raelyard.add[1].InnerXml = $env:RaelyardPackageSourceToken
+  $standardNugetConfigFileXml.Save($standardNugetConfigFilePath)
+}
 function script:CreateReadme
 {
   New-Item README.md
@@ -107,6 +121,10 @@ function script:AddProcessor
   $programClassFileContent[$programClassFileContent.IndexOf("")] = "using Raelyard.Common.NServiceBus;`n"
   $programClassFileContent[$programClassFileContent.IndexOf("namespace Processor")] = "namespace $topLevelDomainName.$subdomainName.Processor"
   Set-Content $programClassFile $programClassFileContent
+  $dockerfile = "Processor/Dockerfile"
+  $dockerfileContent = Get-Content $dockerfile
+  $dockerfileContent[$dockerfileContent.IndexOf("COPY . .")] = "COPY . .`nCOPY .nuget/NuGet.Config ~/.nuget/NuGet/NuGet.Config"
+  Set-Content $dockerfile $dockerfileContent
   dotnet add Processor/Processor.csproj reference "DomainEvents/DomainEvents.csproj"
   dotnet add Processor/Processor.csproj reference Domain/Domain.csproj
   Commit "Added processor project to enable handling commands and events"
@@ -222,6 +240,7 @@ function script:NewSubdomain
 
   CreateRepository $name
   CreateIgnoreFile
+  EnsureStandardNuGetConfig
   CreateReadMe
   CreateSolution
   AddDomainEvents $name $topLevelDomainName

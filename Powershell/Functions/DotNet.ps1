@@ -26,7 +26,7 @@ function script:CreateIgnoreFile
   }
   Copy-Item ~/.raelyard/.gitignore.standard.dotnet .gitignore
   $gitIgnoreContent = Get-Content .gitignore
-  $gitIgnoreContent[$gitIgnoreContent.IndexOf("# tools/**")] = "tools/**"
+  $gitIgnoreContent[$gitIgnoreContent.IndexOf("# tools/**")] = "tools/"
   $gitIgnoreContent[$gitIgnoreContent.IndexOf("# !tools/packages.config")] = "!tools/packages.config"
   Set-Content .gitignore $gitIgnoreContent
   Commit "added standard template ignore file to reduce noise"
@@ -43,7 +43,7 @@ function script:EnsureStandardNuGetConfig
   }
   $standardNugetConfigFilePath = Resolve-Path "~/.raelyard/standardconfig/NuGet/NuGet.Config"
   $standardNugetConfigFileXml = [xml](Get-Content -Path $standardNugetConfigFilePath)
-  $standardNugetConfigFileXml.configuration.packageSourceCredentials.raelyard.add[1].InnerXml = $env:RaelyardPackageSourceToken
+  $standardNugetConfigFileXml.configuration.packageSourceCredentials.raelyard.add[1].Attributes["value"].Value = $env:RaelyardPackageSourceToken
   $standardNugetConfigFileXml.Save($standardNugetConfigFilePath)
 }
 function script:CreateReadme
@@ -101,7 +101,7 @@ function script:AddProjectFilePropertyGroupElement
 
 function script:AddDomain
 {
-  param($name)
+  param($name, $topLevelDomainName)
   AddProject classlib $topLevelDomainName $name Domain
   Remove-Item Domain/Class1.cs
   dotnet add Domain/Domain.csproj reference "DomainEvents/DomainEvents.csproj"
@@ -123,7 +123,10 @@ function script:AddProcessor
   Set-Content $programClassFile $programClassFileContent
   $dockerfile = "Processor/Dockerfile"
   $dockerfileContent = Get-Content $dockerfile
-  $dockerfileContent[$dockerfileContent.IndexOf("COPY . .")] = "COPY . .`nCOPY .nuget/NuGet.Config ~/.nuget/NuGet/NuGet.Config"
+  $dockerfileContent[$dockerfileContent.IndexOf("WORKDIR /src")] = "ARG NUGET_FEED_URL`nARG NUGET_ACCESS_TOKEN`nENV VSS_NUGET_EXTERNAL_FEED_ENDPOINTS ""{\""endpointCredentials\"": [{\""endpoint\"":\""`${NUGET_FEED_URL}\"", \""username\"":\""asdf\"", \""password\"":\""`${NUGET_ACCESS_TOKEN}\""}]}""`nWORKDIR /src"
+  $dockerfileContent[$dockerfileContent.IndexOf("COPY . .")] = "COPY . .`nRUN wget -O - https://raw.githubusercontent.com/Microsoft/artifacts-credprovider/master/helpers/installcredprovider.sh | bash"
+  $dockerfileContent[$dockerfileContent.IndexOf('RUN dotnet publish -c Release -o /app')] = "RUN dotnet restore -s https://api.nuget.org/v3/index.json -s `${NUGET_FEED_URL}`nRUN dotnet publish -c Release -o /app"
+  $dockerfileContent[$dockerfileContent.IndexOf('ENTRYPOINT ["dotnet", "Processor.dll"]')] = "ENTRYPOINT [""dotnet"", ""$topLevelDomainName.$subdomainName.Processor.dll""]"
   Set-Content $dockerfile $dockerfileContent
   dotnet add Processor/Processor.csproj reference "DomainEvents/DomainEvents.csproj"
   dotnet add Processor/Processor.csproj reference Domain/Domain.csproj

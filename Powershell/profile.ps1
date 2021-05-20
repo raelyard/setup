@@ -2,6 +2,8 @@ $functionsDirectory = "$powershellDirectory\Functions"
 $aliasesDirectory = "$powershellDirectory\Aliases"
 $scriptsDirectory = "$powershellDirectory\Scripts"
 
+remove-item alias:curl
+
 # TODO - get this out of profile - load in place from repositories
 $coreDirectory = "$codeDirectory\Core"
 $coreSolutionFile = "$coreDirectory\Core.sln"
